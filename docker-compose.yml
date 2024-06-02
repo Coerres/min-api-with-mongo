@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  webapi:
+    image: my-webapi-image # Der Name des von dir erstellten Docker-Images für deine ASP.NET Core-Webanwendung
+    ports:
+      - "5001:5001"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest # Verwendet das offizielle Docker-Image für MongoDB
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
+    driver: local
